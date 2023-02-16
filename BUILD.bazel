@@ -1,0 +1,12 @@
+load("@rules_rust//proto:toolchain.bzl", "GRPC_COMPILE_DEPS")
+load("@rules_rust//rust:defs.bzl", "rust_binary")
+
+rust_binary(
+    name = "bin",
+    srcs = ["src/main.rs"],
+    deps = [
+        "//proto:bep_proto_rs",
+        "//proto:publish_build_event_proto_rs",
+        "@rules_rust_proto__futures-0.1.31//:futures",
+    ] + GRPC_COMPILE_DEPS,
+)

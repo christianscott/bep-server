@@ -1,0 +1,79 @@
+{
+  "checksum": "1aa12c87e9b9d4a43e2306a9686db628d9544f9ab9c0a5f5e9ae719ea62202c8",
+  "crates": {
+    "direct-cargo-bazel-deps 0.0.1": {
+      "name": "direct-cargo-bazel-deps",
+      "version": "0.0.1",
+      "repository": null,
+      "targets": [
+        {
+          "Library": {
+            "crate_name": "direct_cargo_bazel_deps",
+            "crate_root": ".direct_cargo_bazel_deps.rs",
+            "srcs": [
+              "**/*.rs"
+            ]
+          }
+        }
+      ],
+      "library_target_name": "direct_cargo_bazel_deps",
+      "common_attrs": {
+        "compile_data_glob": [
+          "**"
+        ],
+        "deps": {
+          "common": [
+            {
+              "id": "futures 0.1.31",
+              "target": "futures"
+            }
+          ],
+          "selects": {}
+        },
+        "edition": "2018",
+        "version": "0.0.1"
+      },
+      "license": null
+    },
+    "futures 0.1.31": {
+      "name": "futures",
+      "version": "0.1.31",
+      "repository": {
+        "Http": {
+          "url": "https://crates.io/api/v1/crates/futures/0.1.31/download",
+          "sha256": "3a471a38ef8ed83cd6e40aa59c1ffe17db6855c18e3604d9c4ed8c08ebc28678"
+        }
+      },
+      "targets": [
+        {
+          "Library": {
+            "crate_name": "futures",
+            "crate_root": "src/lib.rs",
+            "srcs": [
+              "**/*.rs"
+            ]
+          }
+        }
+      ],
+      "library_target_name": "futures",
+      "common_attrs": {
+        "compile_data_glob": [
+          "**"
+        ],
+        "crate_features": [
+          "default",
+          "use_std",
+          "with-deprecated"
+        ],
+        "edition": "2015",
+        "version": "0.1.31"
+      },
+      "license": "MIT/Apache-2.0"
+    }
+  },
+  "binary_crates": [],
+  "workspace_members": {
+    "direct-cargo-bazel-deps 0.0.1": ""
+  },
+  "conditions": {}
+}

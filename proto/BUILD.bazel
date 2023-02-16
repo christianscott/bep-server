@@ -1,0 +1,40 @@
+load("@rules_proto//proto:defs.bzl", "proto_library")
+load("@rules_rust//proto:proto.bzl", "rust_grpc_library", "rust_proto_library")
+
+proto_library(
+    name = "bep_proto",
+    srcs = [
+        "build_events.proto",
+        "build_status.proto",
+    ],
+    deps = [
+        "@com_google_protobuf//:any_proto",
+        "@com_google_protobuf//:timestamp_proto",
+    ],
+)
+
+proto_library(
+    name = "publish_build_event_proto",
+    srcs = [
+        "publish_build_event.proto",
+    ],
+    deps = [
+        ":bep_proto",
+        "@com_google_protobuf//:any_proto",
+        "@com_google_protobuf//:duration_proto",
+        "@com_google_protobuf//:empty_proto",
+        "@com_google_protobuf//:timestamp_proto",
+    ],
+)
+
+rust_proto_library(
+    name = "bep_proto_rs",
+    visibility = ["//visibility:public"],
+    deps = [":bep_proto"],
+)
+
+rust_grpc_library(
+    name = "publish_build_event_proto_rs",
+    visibility = ["//visibility:public"],
+    deps = [":publish_build_event_proto"],
+)

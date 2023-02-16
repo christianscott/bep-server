@@ -1,0 +1,65 @@
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+# RUST
+
+http_archive(
+    name = "rules_rust",
+    sha256 = "aaaa4b9591a5dad8d8907ae2dbe6e0eb49e6314946ce4c7149241648e56a1277",
+    urls = ["https://github.com/bazelbuild/rules_rust/releases/download/0.16.1/rules_rust-v0.16.1.tar.gz"],
+)
+
+load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains")
+
+rules_rust_dependencies()
+
+rust_register_toolchains(
+    edition = "2021",
+    versions = [
+        "1.66.1",
+    ],
+)
+
+load("@rules_rust//proto:repositories.bzl", "rust_proto_repositories")
+
+rust_proto_repositories()
+
+load("@rules_rust//proto:transitive_repositories.bzl", "rust_proto_transitive_repositories")
+
+rust_proto_transitive_repositories()
+
+load("@rules_rust//tools/rust_analyzer:deps.bzl", "rust_analyzer_dependencies")
+
+rust_analyzer_dependencies()
+
+load("@rules_rust//crate_universe:defs.bzl", "crate", "crates_repository", "render_config")
+
+crates_repository(
+    name = "crate_index",
+    cargo_lockfile = "//:Cargo.Bazel.lock",
+    lockfile = "//:cargo-bazel-lock.json",
+    packages = {
+        "futures": crate.spec(
+            version = "0.1.31",
+        ),
+    },
+    render_config = render_config(
+        default_package_name = "",
+    ),
+)
+
+load("@crate_index//:defs.bzl", "crate_repositories")
+
+crate_repositories()
+
+# PROTO
+
+http_archive(
+    name = "com_google_protobuf",
+    sha256 = "7c9731ff49ebe1cc4a0650a21d40acc099043f4d584b24632bafc0f5328bc3ff",
+    strip_prefix = "protobuf-3.19.0",
+    urls = ["https://github.com/protocolbuffers/protobuf/releases/download/v3.19.0/protobuf-all-3.19.0.zip"],
+)
+
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+
+protobuf_deps()
